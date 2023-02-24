@@ -5,6 +5,9 @@ const board = document.getElementById("board");
 const winMessage = document.querySelector("[message-text]");
 const restartButton = document.getElementById('restart')
 
+const winSound = new Audio("Sound/Win.wav");
+const drawSound = new Audio("Sound/draw.wav");
+
 
 const winningCombinations = [
     [0,1,2],
@@ -16,6 +19,7 @@ const winningCombinations = [
     [0,4,8],
     [2,4,6]
 ]
+
 let circleTurn;
 
 
@@ -50,10 +54,22 @@ const currentClass = circleTurn ? Circle_class: X_class
 
 placeMark(cell, currentClass)
 
+function placeMark(cell, currentClass){
+    cell.classList.add(currentClass);
+}
+
+// Swap Turn
+
+function swapTurn() {
+    circleTurn=!circleTurn
+}
+
 if(checkWin(currentClass)){
-    endGame(false);
-} else if (isDraw()){
-    endGame(true)
+    endGame(false); // end game false decides win for X or O and display the message
+        
+} else if (isDraw()){  //check for Draw
+    endGame(true) // display message for Draw
+    
 } else {
     swapTurn();
     hoverEffect();
@@ -63,6 +79,7 @@ checkWin()
 
 }
 
+// Check for Draw & gives true or false
 function isDraw() {
     return [...cellElements].every(cell=>{
         return cell.classList.contains(X_class) || cell.classList.contains(Circle_class)
@@ -74,23 +91,29 @@ function endGame(draw){
 
     if(draw){
         winMessage.innerText= "Game Draw!"
+        drawSound.play();
+        // To remove Hover effect
+        board.classList.remove(X_class);
+        board.classList.remove(Circle_class)
         
+
     } else {
+    
         winMessage.innerText = `${circleTurn ? "O" : "X"} Wins!`
+        winSound.play();
+        // To remove Hover effect
+        board.classList.remove(X_class);
+        board.classList.remove(Circle_class)
     }
 
     winMessage.classList.add('show')
 }
 
-function placeMark(cell, currentClass){
-    cell.classList.add(currentClass);
-}
 
-function swapTurn() {
-    circleTurn=!circleTurn
-}
-
+//Decides hover effect for next move/class
 function hoverEffect(){
+
+    //removes all class for hover on board
     board.classList.remove(X_class);
     board.classList.remove(Circle_class)
 
@@ -102,7 +125,7 @@ function hoverEffect(){
 
 }
 
-
+// Check for win, True or False
 function checkWin(currentClass){
 
     return winningCombinations.some(combination =>{

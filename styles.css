@@ -46,18 +46,20 @@ body{
     cursor: pointer;
 }
 
-.cell.x::before, .cell.x::after{
+.cell.x::before, .cell.x::after{  /* Not to over rule an Hover */
     background-color: black;
 }
 
+
+/* background CSS for not selected Cell */
 .board.x .cell:not(.x):not(.circle):hover::before,
 .board.x .cell:not(.x):not(.circle):hover::after{
     background-color: grey;
 }
 
-.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::before, /* Property for hover X & Os */
 .board.x .cell:not(.x):not(.circle):hover::after,
-.cell.x::before, .cell.x::after
+.cell.x::before, .cell.x::after /*two verticle line*/
 {
     content:"";
     width: calc(var(--mark-size)*0.15);
@@ -66,14 +68,14 @@ body{
 }
 
 .board.x .cell:not(.x):not(.circle):hover::before,
-.cell.x:before{
+.cell.x:before   /* One at +45 deg*/
+{
     transform: rotate(45deg);
-    
-    
+
 }
 
 .board.x .cell:not(.x):not(.circle):hover::after,
-.cell.x:after{
+.cell.x:after{  /* second at -45 deg*/
     transform: rotate(-45deg);
     
 }
@@ -87,6 +89,8 @@ body{
     background-color: grey;
 }
 
+/* Circle sizimh & Hover */
+
 .board.circle .cell:not(.x):not(.circle):hover::before,
 .board.circle .cell:not(.x):not(.circle):hover::after,
 .cell.circle::before, .cell.circle::after{
@@ -96,17 +100,21 @@ body{
 
 }
 
+/* For outer circle */
+
 .board.circle .cell:not(.x):not(.circle):hover::before,
 .cell.circle::before{
     width: var(--mark-size);
     height: var(--mark-size);
 }
 
+
+/* For inner circle */
 .board.circle .cell:not(.x):not(.circle):hover::after,
 .cell.circle::after{
     width: calc(var(--mark-size)*0.7);
     height: calc(var(--mark-size)*0.7);
-    background-color: aliceblue;
+    background-color: white;
 
 }
 
@@ -143,6 +151,9 @@ body{
 }
 
 .show{
-    background-color: aqua;
+    color:bisque;
+    font-family: 'Lobster', cursive;
+    font-weight: bold;
+    font-size: 3rem;
 }
 
